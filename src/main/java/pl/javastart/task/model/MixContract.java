@@ -1,4 +1,6 @@
-package pl.javastart.task;
+package pl.javastart.task.model;
+
+import pl.javastart.task.model.CardContract;
 
 public class MixContract extends CardContract {
     private double smsLeft;
@@ -17,59 +19,66 @@ public class MixContract extends CardContract {
         return (smsLeft > 0 || accountBalance > 0);
     }
 
-
     @Override
-    boolean sendSms() {
+    public boolean sendSms() {
         boolean isSmsSendAvailable = isSmsSendAvailable();
-        if(isSmsSendAvailable){
+        if (isSmsSendAvailable) {
             increaseSmsCount();
-            if (smsLeft > 0)
+            if (smsLeft > 0) {
                 smsLeft--;
-            else
+            } else {
                 accountBalance -= smsCost;
+            }
         }
         return isSmsSendAvailable;
     }
+
     @Override
     boolean isMmsSendAvailable() {
         return  (mmsLeft > 0 || accountBalance > 0);
     }
 
     @Override
-    boolean sendMms() {
+    public boolean sendMms() {
         boolean isSmsSendAvailable = isSmsSendAvailable();
-        if(isSmsSendAvailable){
+        if (isSmsSendAvailable) {
             increaseMmsCount();
-            if (mmsLeft > 0)
+            if (mmsLeft > 0) {
                 mmsLeft--;
-            else
+            } else {
                 accountBalance -= mmsCost;
+            }
         }
         return isSmsSendAvailable;
     }
+
     @Override
     boolean isCallSecondAvailable() {
         return  (secondLeft > 0 || accountBalance > 0);
-
     }
 
     @Override
-    boolean callSecond() {
+    public boolean callSecond() {
         boolean isCallSecondAvailable = isCallSecondAvailable();
-        if(isCallSecondAvailable){
+        if (isCallSecondAvailable) {
             increaseSecondCount();
-            if (secondLeft > 0)
+            if (secondLeft > 0) {
                 secondLeft--;
-            else
+            } else {
                 accountBalance -= getCostPerSecond();
+            }
         }
         return isCallSecondAvailable;
+    }
+
+    private double convertSecToMin() {
+        return  secondLeft / 60;
     }
 
     @Override
     public String printAccountState() {
         return super.printAccountState() + "\nPozostale sms, mms i sekundy:" + smsLeft + ", " + mmsLeft
-                + ", " + secondLeft;
+                + ", " + convertSecToMin();
     }
 }
 

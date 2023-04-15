@@ -1,4 +1,6 @@
-package pl.javastart.task;
+package pl.javastart.task.utils;
+
+import pl.javastart.task.model.Contract;
 
 public class Phone {
     private final Contract contract;
@@ -8,10 +10,8 @@ public class Phone {
     }
 
     public void sendSms() {
-        if (contract.sendSms())  {
+        if (contract.sendSms()) {
             System.out.println("SMS sent");
-
-
         } else {
             System.out.println("failed to send SMS");
         }
@@ -19,13 +19,13 @@ public class Phone {
 
     public void call(int seconds) {
         for (int i = 0; i < seconds; i++) {
-            if(!contract.callSecond()){
+            if (!contract.callSecond()) {
                 System.out.println("Rozmowa przerwana po " + i + " sekundach");
-                return;}
+                return;
+            }
         }
         System.out.println("Rozmowa trwała" + seconds + "sekund");
-        }
-
+    }
 
     public void sendMms() {
         if (contract.sendMms()) {
@@ -35,11 +35,10 @@ public class Phone {
         }
     }
 
-
     public void printAccountState() {
-      contract.printAccountState();
-        }
+        System.out.println(contract.printAccountState());
     }
+}
 
 
 

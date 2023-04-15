@@ -1,4 +1,4 @@
-package pl.javastart.task;
+package pl.javastart.task.info;
 
 public class AccountState {
     private int smsCount;
@@ -15,10 +15,10 @@ public class AccountState {
 
     @Override
     public String toString() {
-        return "=== STAN KONTA ===" +  "\n"+
-                "Wysłanych SMSów:"  + smsCount + "\n"+
-                "Wysłanych MMSów: " + mmsCount + "\n"+
-                "Liczba sekund rozmowy: " + minCount + "\n"+
-                "Na koncie zostało  " + accountBalance + "zł" ;
+        return "=== STAN KONTA ===" + "\n" +
+                "Wysłanych SMSów:" + smsCount + "\n" +
+                "Wysłanych MMSów: " + mmsCount + "\n" +
+                "Liczba sekund rozmowy: " + minCount + "\n" +
+                "Na koncie zostało  " + accountBalance + "zł";
     }
 }
