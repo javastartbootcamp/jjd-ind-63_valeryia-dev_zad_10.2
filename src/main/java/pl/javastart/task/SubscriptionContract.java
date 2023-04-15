@@ -2,40 +2,48 @@ package pl.javastart.task;
 
     public class SubscriptionContract extends Contract {
         private double monthlyCost;
+        boolean isAccountActive;
 
-        public SubscriptionContract(double accountBalance,double monthlyCost) {
-            super(accountBalance, isContractActive);
-            boolean isContractActive = getInitialContractStatus(accountBalance, monthlyCost);
-            super.setSmsLeft(Integer.MAX_VALUE);
-            super.setMmsLeft(Integer.MAX_VALUE);
-            super.setMinLeft(Integer.MAX_VALUE);
+        public SubscriptionContract(double accountBalance, double monthlyCost) {
+            super(accountBalance);
+            if (accountBalance >  monthlyCost){
+                super.accountBalance -= monthlyCost;
+                isAccountActive = true;
+            }
             this.monthlyCost = monthlyCost;
         }
 
-        public double getMonthlyCost() {
-            return monthlyCost;
-        }
-        private boolean getInitialContractStatus(double accountBalance, double monthlyCost){
-            return  (accountBalance > monthlyCost);
 
-        }
 
-        public void setMonthlyCost(double monthlyCost) {
-            this.monthlyCost = monthlyCost;
+        @Override
+         boolean isSmsSendAvailable() {
+            return isAccountActive;
         }
 
         @Override
-        double getSmsCost() {
-            return 0;
+        boolean sendSms() {
+            return isSmsSendAvailable();
         }
 
         @Override
-        double getMmsCost() {
-            return 0;
+        boolean isMmsSendAvailable() {
+            return isAccountActive;
         }
 
         @Override
-        double getMinCost() {
-            return 0;
+        boolean sendMms() {
+            return isMmsSendAvailable();
         }
+
+        @Override
+        boolean isCallSecondAvailable() {
+            return isAccountActive;
+        }
+
+        @Override
+        boolean callSecond() {
+            return isCallSecondAvailable();
+        }
+
+
     }
