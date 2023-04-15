@@ -1,0 +1,64 @@
+package pl.javastart.task.model;
+
+public class CardContract extends Contract {
+    protected double smsCost;
+    protected double mmsCost;
+    protected  double minCost;
+
+    public CardContract(double accountBalance, double smsCost, double mmsCost, double minCost) {
+        super(accountBalance);
+        this.smsCost = smsCost;
+        this.mmsCost = mmsCost;
+        this.minCost = minCost;
+    }
+
+    @Override
+        boolean isSmsSendAvailable() {
+        return (accountBalance > 0);
+    }
+
+    @Override
+    public boolean sendSms() {
+        boolean isSmsSendAvailable = isSmsSendAvailable();
+        if (isSmsSendAvailable) {
+            increaseSmsCount();
+            accountBalance -= smsCost;
+        }
+        return isSmsSendAvailable;
+    }
+
+    @Override
+        boolean isMmsSendAvailable() {
+        return (accountBalance > 0);
+    }
+
+    @Override
+    public boolean sendMms() {
+        boolean isMmsSendAvailable = isMmsSendAvailable();
+        if (isMmsSendAvailable) {
+            increaseMmsCount();
+            accountBalance -= smsCost;
+        }
+        return isMmsSendAvailable;
+    }
+
+    public double getCostPerSecond() {
+        return minCost / 60;
+    }
+
+    @Override
+        boolean isCallSecondAvailable() {
+        return  (accountBalance > 0);
+    }
+
+    @Override
+    public boolean callSecond() {
+        boolean isCallSecondAvailable = isCallSecondAvailable();
+        if (isCallSecondAvailable) {
+            increaseSecondCount();
+            accountBalance -= getCostPerSecond();
+        }
+        return isCallSecondAvailable;
+    }
+}
+
