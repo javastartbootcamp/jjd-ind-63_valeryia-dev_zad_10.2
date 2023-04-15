@@ -22,6 +22,7 @@ public class MixContract extends CardContract {
     boolean sendSms() {
         boolean isSmsSendAvailable = isSmsSendAvailable();
         if(isSmsSendAvailable){
+            increaseSmsCount();
             if (smsLeft > 0)
                 smsLeft--;
             else
@@ -38,6 +39,7 @@ public class MixContract extends CardContract {
     boolean sendMms() {
         boolean isSmsSendAvailable = isSmsSendAvailable();
         if(isSmsSendAvailable){
+            increaseMmsCount();
             if (mmsLeft > 0)
                 mmsLeft--;
             else
@@ -55,12 +57,19 @@ public class MixContract extends CardContract {
     boolean callSecond() {
         boolean isCallSecondAvailable = isCallSecondAvailable();
         if(isCallSecondAvailable){
+            increaseSecondCount();
             if (secondLeft > 0)
                 secondLeft--;
             else
                 accountBalance -= getCostPerSecond();
         }
         return isCallSecondAvailable;
+    }
+
+    @Override
+    public String printAccountState() {
+        return super.printAccountState() + "\nPozostale sms, mms i sekundy:" + smsLeft + ", " + mmsLeft
+                + ", " + secondLeft;
     }
 }
 

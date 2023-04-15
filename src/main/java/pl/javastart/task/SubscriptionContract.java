@@ -22,11 +22,17 @@ package pl.javastart.task;
 
         @Override
         boolean sendSms() {
-            return isSmsSendAvailable();
+            boolean isSmsSendAvailable= isSmsSendAvailable();
+            if(isSmsSendAvailable)
+                increaseSmsCount();
+            return isSmsSendAvailable;
         }
 
         @Override
         boolean isMmsSendAvailable() {
+            boolean isMmsSendAvailable= isMmsSendAvailable();
+            if(isMmsSendAvailable)
+                increaseMmsCount();
             return isAccountActive;
         }
 
@@ -42,8 +48,14 @@ package pl.javastart.task;
 
         @Override
         boolean callSecond() {
+            boolean isSecondAvailable= isCallSecondAvailable();
+            if(isSecondAvailable)
+                increaseSecondCount();
             return isCallSecondAvailable();
         }
 
-
+        @Override
+        public String printAccountState() {
+           return super.printAccountState() + "\nRachunek: " + monthlyCost ;
+        }
     }

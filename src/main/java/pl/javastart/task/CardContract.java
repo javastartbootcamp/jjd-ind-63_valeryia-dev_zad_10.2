@@ -20,8 +20,9 @@ package pl.javastart.task;
         @Override
         boolean sendSms() {
             boolean isSmsSendAvailable = isSmsSendAvailable();
-            if(isSmsSendAvailable)
-                accountBalance -= smsCost;
+            if(isSmsSendAvailable){
+                increaseSmsCount();
+                accountBalance -= smsCost;}
             return isSmsSendAvailable;
         }
         @Override
@@ -32,8 +33,9 @@ package pl.javastart.task;
         @Override
         boolean sendMms() {
             boolean isMmsSendAvailable = isMmsSendAvailable();
-            if(isMmsSendAvailable)
-                accountBalance -= smsCost;
+            if(isMmsSendAvailable){
+                increaseMmsCount();
+                accountBalance -= smsCost;}
             return isMmsSendAvailable;
         }
         public double getCostPerSecond() {
@@ -50,7 +52,8 @@ package pl.javastart.task;
         boolean callSecond() {
             boolean isCallSecondAvailable = isCallSecondAvailable();
             if (isCallSecondAvailable){
-                    accountBalance -= getCostPerSecond();
+                increaseSecondCount();
+                accountBalance -= getCostPerSecond();
             }
             return isCallSecondAvailable;
         }
